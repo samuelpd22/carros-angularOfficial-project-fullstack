@@ -1,1 +1,55 @@
-<p>carroslist works!</p>
+<br>
+<div class="container">
+  <!--MODELO PARA TELA DE LOGIN, SÓ ALTERAR --->
+
+  <div class="row">
+    <div class="col-lg12">
+      <div class="card">
+        <!--Quadro branco" -->
+        <div class="card-body">
+
+          <h3>Listagem de carros</h3>
+          <div class="direita">
+              <button type="button" class="btn btn-primary btn-rounded" routerLink='/admin/carros/new'
+                        mdbRipple>
+                        Novo
+                      </button>
+          </div>
+
+          <br>
+
+          <table border="1" class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              @for (carro of lista; track $index) {
+              <tr>
+                <td>{{carro.id}}</td>
+                <td>{{carro.nome}}</td>
+                <td class="direita">
+                  <button type="button" class="btn btn-primary btn-rounded" routerLink='/admin/carros/edit/{{carro.id}}'
+                    mdbRipple>
+                    Editar
+                  </button>
+                  <button type="button" class="btn btn-danger btn-rounded" (click)="deleteById(carro)" mdbRipple>
+                    Deletar
+                  </button>
+                </td>
+              </tr>
+
+            }
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
