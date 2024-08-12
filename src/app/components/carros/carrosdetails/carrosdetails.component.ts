@@ -1,8 +1,9 @@
-import { Component,  inject } from '@angular/core';
+import { Component,  EventEmitter,  inject, Input, Output, output } from '@angular/core';
 import { MdbFormsModule, } from 'mdb-angular-ui-kit/forms';
 import { FormsModule } from '@angular/forms';
 import { Carro } from '../../../models/carro';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-carrosdetails',
@@ -13,7 +14,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CarrosdetailsComponent {
 
-    carro:Carro = new Carro(0,'');
+    @Input("carro") carro:Carro = new Carro(0,'');
+    @Output("retorno") retorno = new EventEmitter<any>();
     router = inject(ActivatedRoute);
     router2 = inject(Router);
 
@@ -33,11 +35,25 @@ export class CarrosdetailsComponent {
 
     save(){
       if(this.carro.id > 0){
-        alert('Editado com sucesso!');
+        Swal.fire({
+          title:'Sucesso!',
+          text:'Editado com sucesso',
+          icon:'success',
+          confirmButtonText: 'Ok'
+        });
+
         this.router2.navigate(['admin/carros'], { state:{ carroEditado: this.carro} });
       } else {
-        alert('Salvo com sucesso!');
+        Swal.fire({
+          title:'Sucesso!',
+          text:'Salvo com sucesso',
+          icon:'success',
+          confirmButtonText: 'Ok'
+        });
+        //FECHAR MODAL
         this.router2.navigate(['admin/carros'], { state:{ carroNovo: this.carro} });
       }
+
+      this.retorno.emit(this.carro);
     }
 }

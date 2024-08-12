@@ -10,10 +10,19 @@
 
           <h3>Listagem de carros</h3>
           <div class="direita">
+
+
+            <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="new()">
+
+                        Novo
+                      </button>
+
+            <!--
               <button type="button" class="btn btn-primary btn-rounded" routerLink='/admin/carros/new'
                         mdbRipple>
                         Novo
                       </button>
+            -->
           </div>
 
           <br>
@@ -33,8 +42,7 @@
                 <td>{{carro.id}}</td>
                 <td>{{carro.nome}}</td>
                 <td class="direita">
-                  <button type="button" class="btn btn-primary btn-rounded" routerLink='/admin/carros/edit/{{carro.id}}'
-                    mdbRipple>
+                  <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="edit(carro)">
                     Editar
                   </button>
                   <button type="button" class="btn btn-danger btn-rounded" (click)="deleteById(carro)" mdbRipple>
@@ -53,3 +61,23 @@
     </div>
   </div>
 </div>
+
+
+
+<ng-template #modalCarroDetalhe>
+
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Cadastro</h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="modalRef.close()"
+  ></button>
+</div>
+<div class="modal-body">
+
+<app-carrosdetails [carro]="carroEdit" (retorno)="retornoDetalhe($event)"></app-carrosdetails>
+
+</div>
+</ng-template>
