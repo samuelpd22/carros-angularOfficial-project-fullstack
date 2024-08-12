@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { CarrosdetailsComponent } from "../carrosdetails/carrosdetails.component";
 import Swal from 'sweetalert2';
+import { CarroService } from '../../../services/carro.service';
 
 @Component({
   selector: 'app-carroslist',
@@ -24,15 +25,12 @@ export class CarroslistComponent {
 
 
 
-
+  carroService = inject(CarroService);//@Autowired
 
 
   constructor(){
 
-    this.lista.push(new Carro(1, 'Fiesta'));
-    this.lista.push(new Carro(2, 'i30'));
-    this.lista.push(new Carro(3, 'Corolla'));
-    this.lista.push(new Carro(4, 'Civic'));
+   this.listAll();
 
 
     let carroNovo = history.state.carroNovo;
@@ -49,6 +47,19 @@ export class CarroslistComponent {
     }
 
   }
+
+  listAll(){ //ESTRUTURA PARA METODOD GET RETORNAR
+    this.carroService.listAll().subscribe({
+      next:lista => { //QUANDO DER CERTO
+        this.lista = lista;
+      },
+      error: err => { //QUANDO OCORRER ERRO
+        alert("Ocorreu algum erro")
+      },
+    });
+  }
+
+
 
   deleteById(Carro: Carro){
     Swal.fire({
