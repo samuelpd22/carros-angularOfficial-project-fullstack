@@ -15,7 +15,7 @@ export class CarrosdetailsComponent {
 
     carro:Carro = new Carro(0,'');
     router = inject(ActivatedRoute);
-    router2= inject(Router);
+    router2 = inject(Router);
 
     constructor(){
       let id = this.router.snapshot.params['id'];

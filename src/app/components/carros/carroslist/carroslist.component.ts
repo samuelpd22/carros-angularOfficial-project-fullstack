@@ -26,7 +26,7 @@ export class CarroslistComponent {
     let carroEditado = history.state.carroEditado;
 
     if(carroNovo){
-      carroEditado.id = 555;
+      carroNovo.id = 555;
       this.lista.push(carroNovo);
 
     }
