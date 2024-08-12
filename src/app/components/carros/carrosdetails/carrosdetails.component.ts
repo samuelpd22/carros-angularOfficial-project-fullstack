@@ -1,4 +1,4 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component,  inject } from '@angular/core';
 import { MdbFormsModule, } from 'mdb-angular-ui-kit/forms';
 import { FormsModule } from '@angular/forms';
 import { Carro } from '../../../models/carro';
@@ -15,7 +15,7 @@ export class CarrosdetailsComponent {
 
     carro:Carro = new Carro(0,'');
     router = inject(ActivatedRoute);
-    router2= Inject(Router);
+    router2= inject(Router);
 
     constructor(){
       let id = this.router.snapshot.params['id'];
@@ -29,6 +29,8 @@ export class CarrosdetailsComponent {
       let carroRetornado: Carro = new Carro(id, "Fiesta")
       this.carro = carroRetornado;
     }
+
+
     save(){
       if(this.carro.id > 0){
         alert('Editado com sucesso!');
@@ -36,6 +38,6 @@ export class CarrosdetailsComponent {
       } else {
         alert('Salvo com sucesso!');
         this.router2.navigate(['admin/carros'], { state:{ carroNovo: this.carro} });
-    }
+      }
     }
 }
