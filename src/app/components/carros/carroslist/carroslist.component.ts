@@ -115,16 +115,7 @@ export class CarroslistComponent {
 
 
   retornoDetalhe(carro:Carro){
-    if(carro.id > 0){
-      let indice = this.lista.findIndex( x => { return x.id == carro.id});
-      this.lista[indice] = carro;
-    } else {
-      carro.id=55;
-      this.lista.push(carro)
-    }
-
-
-
+    this.listAll();
     this.modalRef.close();
   }
 
