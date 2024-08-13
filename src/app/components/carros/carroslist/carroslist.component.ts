@@ -48,20 +48,25 @@ export class CarroslistComponent {
 
   }
 
-  listAll(){ //ESTRUTURA PARA METODOD GET RETORNAR
+  listAll(){          //ESTRUTURA PARA METODOD GET RETORNAR
     this.carroService.listAll().subscribe({
       next:lista => { //QUANDO DER CERTO
         this.lista = lista;
+
       },
       error: err => { //QUANDO OCORRER ERRO
-        alert("Ocorreu algum erro")
+        Swal.fire({   //EXIBE MENSAGEL
+          title:"Ocorreu um erro",
+          icon:'error',
+          confirmButtonText: 'Ok'
+        });
       },
     });
   }
 
 
 
-  deleteById(Carro: Carro){
+  deleteById(carro: Carro){
     Swal.fire({
       title:'Tem certeza que deseja deletar este registro?',
       icon:'warning',
@@ -71,16 +76,27 @@ export class CarroslistComponent {
       cancelButtonText:'Não',
 
     }).then((result) =>{
-      if(result.isConfirmed){
-        let indice = this.lista.findIndex(x => {return x.id == Carro.id})
-        this.lista.splice(indice, 1);
+      if(result.isConfirmed){ //Clicou em OK! para deletar, vai fazer:
 
 
-        Swal.fire({
-          title:'Deletado com sucesso!',
-          icon:'success',
-          confirmButtonText: 'Ok'
+        this.carroService.delete(carro.id).subscribe({
+          next:message => { //QUANDO DER CERTO
+            Swal.fire({   //EXIBE MENSAGEL
+              title:message, //PEGA MENSAGEL DO MEU BACKEND , No endpoint Delete
+              icon:'success',
+              confirmButtonText: 'Ok'
+            });
+            this.listAll();
+          },
+          error: err => { //QUANDO OCORRER ERRO
+            Swal.fire({   //EXIBE MENSAGEL
+              title:"Ocorreu um erro",
+              icon:'error',
+              confirmButtonText: 'Ok'
+            });
+          },
         });
+
 
       }
     })
