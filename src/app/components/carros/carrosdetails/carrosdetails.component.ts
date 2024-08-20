@@ -1,15 +1,18 @@
-import { Component,  EventEmitter,  inject, Input, Output, output } from '@angular/core';
+import { Component,  EventEmitter,  inject, Input, Output, output, TemplateRef, ViewChild } from '@angular/core';
 import { MdbFormsModule, } from 'mdb-angular-ui-kit/forms';
 import { FormsModule } from '@angular/forms';
 import { Carro } from '../../../models/carro';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { CarroService } from '../../../services/carro.service';
+import { MarcaslistComponent } from "../../marcas/marcaslist/marcaslist.component";
+import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { Marca } from '../../../models/marca';
 
 @Component({
   selector: 'app-carrosdetails',
   standalone: true,
-  imports: [MdbFormsModule,FormsModule],
+  imports: [MdbFormsModule, FormsModule, MarcaslistComponent,MarcaslistComponent],
   templateUrl: './carrosdetails.component.html',
   styleUrl: './carrosdetails.component.scss'
 })
@@ -17,7 +20,14 @@ export class CarrosdetailsComponent {
 
   carroService = inject(CarroService);//@Autowired
 
-    @Input("carro") carro:Carro = new Carro(0,'');
+  //ELEMENTOS DE MODAL
+  modalService = inject(MdbModalService); // Para conseguir abrir a MODAL
+  @ViewChild("modalMarcas") modalMarcas!: TemplateRef<any>;
+  modalRef!: MdbModalRef<any>;
+  //ELEMENTOS DE MODAL ^^^
+
+
+    @Input("carro") carro:Carro = new Carro(0,'',null);
     @Output("retorno") retorno = new EventEmitter<any>();
     router = inject(ActivatedRoute);
     router2 = inject(Router);
@@ -103,4 +113,17 @@ export class CarrosdetailsComponent {
 
 
     }
+
+
+
+    buscarMarca(){
+
+      this.modalRef = this.modalService.open(this.modalMarcas,{modalClass:'modal-lg'});
+    }
+
+    retornoMarca(marca:Marca){
+      this.carro.marca = marca;
+      this.modalRef.close();
+    }
 }
+
