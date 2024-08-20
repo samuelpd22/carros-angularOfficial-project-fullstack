@@ -1,5 +1,5 @@
 
-import { Component, inject, TemplateRef, ViewChild, viewChild } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, TemplateRef, ViewChild, viewChild } from '@angular/core';
 import { Carro } from '../../../models/carro';
 import { RouterLink } from '@angular/router';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
@@ -25,8 +25,11 @@ export class MarcaslistComponent {
   modalService = inject(MdbModalService); // Para conseguir abrir a MODAL
   @ViewChild("modalMarcaDetalhe") modelMarcaDetalhe!: TemplateRef<any>;
   modalRef!: MdbModalRef<any>;
+  @Output("retorno") retorno = new EventEmitter<any>();
+
   //ELEMENTOS DE MODAL ^^^
 
+  @Input("esconderBotoes") esconderBotoes:boolean = false;
 
 
   marcaService = inject(MarcaService);//@Autowired
@@ -121,6 +124,11 @@ export class MarcaslistComponent {
   retornoDetalhe(marca:Marca){
     this.listAll();
     this.modalRef.close();
+
   }
 
+
+  selecionar(marca:Marca){
+    this.retorno.emit(marca);
+  }
 }

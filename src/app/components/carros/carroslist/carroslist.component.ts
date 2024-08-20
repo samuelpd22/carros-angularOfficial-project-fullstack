@@ -15,7 +15,7 @@ import { CarroService } from '../../../services/carro.service';
 })
 export class CarroslistComponent {
   lista: Carro[]=[];
-  carroEdit: Carro = new Carro(0,"");
+  carroEdit: Carro = new Carro(0,"",null);
 
   //ELEMENTOS DE MODAL
   modalService = inject(MdbModalService); // Para conseguir abrir a MODAL
@@ -104,7 +104,7 @@ export class CarroslistComponent {
   }
 
   new(){
-    this.carroEdit = new Carro(0,"");
+    this.carroEdit = new Carro(0,"",null);
     this.modalRef = this.modalService.open(this.modelCarroDetalhe);
   }
   edit(carro:Carro){
