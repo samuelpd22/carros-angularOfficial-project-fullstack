@@ -1,0 +1,84 @@
+<br>
+<div class="container">
+
+  <div class="row">
+    <div class="col-lg12">
+      <div class="card">
+        <!--Quadro branco" -->
+        <div class="card-body">
+
+          <h3>Listagem de Acessorios</h3>
+          <div class="direita">
+
+
+            <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="new()">
+
+                        Novo
+                      </button>
+
+            <!--
+              <button type="button" class="btn btn-primary btn-rounded" routerLink='/admin/carros/new'
+                        mdbRipple>
+                        Novo
+                      </button>
+            -->
+          </div>
+
+          <br>
+
+          <table border="1" class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              @for (acessorio of lista; track $index) {
+              <tr>
+                <td>{{acessorio.id}}</td>
+                <td>{{acessorio.nome}}</td>
+                <td class="direita">
+
+                  <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="edit(acessorio)">
+                    Editar
+                  </button>
+                  <button type="button" class="btn btn-danger btn-rounded" (click)="deleteById(acessorio)" mdbRipple>
+                    Deletar
+                  </button>
+
+                </td>
+              </tr>
+
+            }
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<ng-template #modalMarcaDetalhe>
+
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Cadastro</h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+
+  ></button>
+</div>
+<div class="modal-body">
+
+<app-new-acessorios [acessorio]="acessorioEdit" (retorno)="retornoDetalhe($event)"></app-new-acessorios>
+
+</div>
+</ng-template>
