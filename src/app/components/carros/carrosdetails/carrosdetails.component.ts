@@ -8,11 +8,13 @@ import { CarroService } from '../../../services/carro.service';
 import { MarcaslistComponent } from "../../marcas/marcaslist/marcaslist.component";
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Marca } from '../../../models/marca';
+import { AcessorioslistComponent } from "../../acessorios/acessorioslist/acessorioslist.component";
+import { Acessorios } from '../../../models/acessorios';
 
 @Component({
   selector: 'app-carrosdetails',
   standalone: true,
-  imports: [MdbFormsModule, FormsModule, MarcaslistComponent,MarcaslistComponent],
+  imports: [MdbFormsModule, FormsModule, MarcaslistComponent, MarcaslistComponent, AcessorioslistComponent],
   templateUrl: './carrosdetails.component.html',
   styleUrl: './carrosdetails.component.scss'
 })
@@ -23,6 +25,7 @@ export class CarrosdetailsComponent {
   //ELEMENTOS DE MODAL
   modalService = inject(MdbModalService); // Para conseguir abrir a MODAL
   @ViewChild("modalMarcas") modalMarcas!: TemplateRef<any>;
+  @ViewChild("modalAcessorios") modalAcessorios!: TemplateRef<any>;
   modalRef!: MdbModalRef<any>;
   //ELEMENTOS DE MODAL ^^^
 
@@ -121,9 +124,30 @@ export class CarrosdetailsComponent {
       this.modalRef = this.modalService.open(this.modalMarcas,{modalClass:'modal-lg'});
     }
 
+    buscarAcessorio(){
+
+      this.modalRef = this.modalService.open(this.modalAcessorios,{modalClass:'modal-lg'});
+    }
+
+
+
     retornoMarca(marca:Marca){
       this.carro.marca = marca;
       this.modalRef.close();
+    }
+
+    retornoAcessorios(acessorio:Acessorios){
+      if(this.carro.acessorios == null)
+        this.carro.acessorios= [];
+
+      this.carro.acessorios.push(acessorio)
+      this.modalRef.close();
+    }
+
+
+    desvincularAcessorioCarro(acessorio: Acessorios){
+      let posicao = this.carro.acessorios.findIndex( x => {return x.id == acessorio.id});
+      this.carro.acessorios.splice(posicao,1);
     }
 }
 

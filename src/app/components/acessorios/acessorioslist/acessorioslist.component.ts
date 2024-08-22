@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { NewAcessoriosComponent } from '../new-acessorios/new-acessorios.component';
@@ -23,6 +23,12 @@ export class AcessorioslistComponent {
   @ViewChild("modalMarcaDetalhe") modelMarcaDetalhe!: TemplateRef<any>;
   modalRef!: MdbModalRef<any>;
   @Output("retorno") retorno = new EventEmitter<any>();
+  @Input("esconderBotoes") esconderBotoes:boolean = false;
+
+
+  //ELEMENTOS DE MODAL ^^^
+
+
 
   //ELEMENTOS DE MODAL ^^^
 

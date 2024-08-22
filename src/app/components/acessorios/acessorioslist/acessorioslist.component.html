@@ -41,14 +41,18 @@
                 <td>{{acessorio.id}}</td>
                 <td>{{acessorio.nome}}</td>
                 <td class="direita">
-
+                  @if (esconderBotoes) {
+                    <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="selecionar(acessorio)">
+                      Selecionar
+                    </button>
+                  }@else {
                   <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="edit(acessorio)">
                     Editar
                   </button>
                   <button type="button" class="btn btn-danger btn-rounded" (click)="deleteById(acessorio)" mdbRipple>
                     Deletar
                   </button>
-
+                }
                 </td>
               </tr>
 
